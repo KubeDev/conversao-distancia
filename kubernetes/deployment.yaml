@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  conversao-distancia
+  namespace: default
+  labels:
+    app:  conversao-distancia
+spec:
+  selector:
+    matchLabels:
+      app: conversao-distancia
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app:  conversao-distancia
+    spec:
+      containers:
+      - name:  conversao-distancia
+        image: fabricioveronez/conversao-distancia:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 5000
+          name:  http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: conversao-distancia
+  namespace: default
+spec:
+  selector:
+    app: conversao-distancia
+  type: NodePort
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 5000
+    nodePort: 30000
+
+

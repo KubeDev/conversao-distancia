@@ -1,0 +1,20 @@
+#BUSCANDO IMAGEM
+FROM python
+
+#CRIANDO O DIRETÓRIO
+WORKDIR /app
+
+#ADICIONANDO OS REQUIREMENTS
+COPY requirements.txt . 
+
+#EXECUTAR COMANDO DO REQUIREMENTS
+RUN pip install -r requirements.txt
+
+#COPIAR TODOS AS INSTALAÇÕES 
+COPY . /app/
+
+#EXPOR A PORTA DE EXCUÇÃO
+EXPOSE 5000
+
+#INICIALIZAÇÃO DO PROJETO
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]

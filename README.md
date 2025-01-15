@@ -11,7 +11,7 @@
 
 ## 💻 About
 
-This project is a forked API developed using Python which converts miles to meters and other distance conversions. There are an online Docker Hub Image to access this project on:
+This project is a forked API developed using Python which converts miles to meters and other distance conversions. There is an online Docker Hub Image to access this project on:
 <h4 align="center">
   https://hub.docker.com/repository/docker/devsouzafs/distance-converter/general
 </h4>
@@ -42,7 +42,7 @@ This project needs the following steps to run it:
 ```bash
 
 #Download the Image from Docker Hub 
-$ docker image pull devsouzafs/distance-converter:v1
+$ docker image pull devsouzafs/distance-converter:v1 (or latest)
 
 #Run it
 $ docker container run -d -p 5000:5000 devsouzafs/distance-converter:v1 (or latest)

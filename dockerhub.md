@@ -1,0 +1,1 @@
+https://hub.docker.com/repository/docker/joaodev599/conversation-distance-challenge/tags/latest/sha256-fa50c7ceb978650abe7cd6038834e8ffaf2438589a8762dfb3434e545c359288

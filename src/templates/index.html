@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt-BR" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Conversor de distâncias moderno e intuitivo - Converta metros, quilômetros, milhas, pés e muito mais">
+    <meta name="author" content="Conversor de Distância">
+    <title>Conversor de Distância | Moderno & Preciso</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS Customizado -->
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header>
+        <!-- Navbar moderna -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top custom-navbar">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <i class="fas fa-ruler-combined me-2"></i>
+                    Conversor de Distância
+                </a>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Conteúdo principal -->
+    <main class="flex-shrink-0">
+        <div class="container" style="padding: 80px 15px 20px;">
+            
+            <!-- Container principal com glass effect -->
+            <div class="main-container">
+                
+                <!-- Header do conversor -->
+                <div class="converter-header">
+                    <h1 class="converter-title">
+                        <i class="fas fa-exchange-alt me-3"></i>
+                        Conversor de Distância
+                    </h1>
+                    <p class="converter-subtitle">
+                        Converta facilmente entre diferentes unidades de medida
+                    </p>
+                </div>
+
+                <!-- Formulário de conversão -->
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="converter-card">
+                            <h3 class="card-title">
+                                <i class="fas fa-calculator me-2"></i>
+                                Conversão
+                            </h3>
+                            
+                            <form id="converterForm" action="/" method="post">
+                                <!-- Seletor de conversão -->
+                                <div class="mb-4">
+                                    <label for="selectTemp" class="form-label">
+                                        <i class="fas fa-arrows-alt-h me-2"></i>
+                                        Tipo de Conversão
+                                    </label>
+                                    <select class="form-select" id="selectTemp" name="selectTemp">
+                                        <option value="1">Metro → Quilômetros</option>
+                                        <option value="2">Quilômetros → Metro</option>
+                                        <option value="3">Metro → Milhas</option>
+                                        <option value="4">Milhas → Metro</option>
+                                        <option value="5">Metro → Pés</option>
+                                        <option value="6">Pés → Metro</option>
+                                        <option value="7">Centímetros → Metro</option>
+                                        <option value="8">Metro → Centímetros</option>
+                                        <option value="9">Polegadas → Centímetros</option>
+                                        <option value="10">Centímetros → Polegadas</option>
+                                        <option value="11">Jardas → Metro</option>
+                                        <option value="12">Metro → Jardas</option>
+                                    </select>
+                                </div>
+
+                                <!-- Valor de entrada -->
+                                <div class="mb-4">
+                                    <label for="valorRef" class="form-label">
+                                        <i class="fas fa-hashtag me-2"></i>
+                                        Valor a converter
+                                    </label>
+                                    <input type="number" step="any" class="form-control" id="valorRef" name="valorRef" 
+                                           placeholder="Digite o valor..." required>
+                                </div>
+
+                                <!-- Botões -->
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                    <button type="button" class="btn btn-swap" id="swapBtn" title="Trocar unidades">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </button>
+                                    <button type="submit" class="btn btn-convert" id="convertBtn">
+                                        <i class="fas fa-calculator me-2"></i>
+                                        Converter
+                                        <span class="spinner d-none"></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Área de resultado -->
+                {% if conteudo is defined %}
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="result-card">
+                            <div class="result-title">
+                                <i class="fas fa-check-circle me-2"></i>
+                                Resultado da Conversão
+                            </div>
+                            <div class="result-value">
+                                {% if conteudo['valor'] != 'Entrada inválida' and conteudo['valor'] != 'Inválido' %}
+                                    {{ "%.6f"|format(conteudo['valor']) }}
+                                {% else %}
+                                    {{ conteudo['valor'] }}
+                                {% endif %}
+                            </div>
+                            <div class="result-unit">{{ conteudo['unidade'] }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Histórico de conversões (será implementado com JavaScript) -->
+                <div class="row justify-content-center d-none" id="historySection">
+                    <div class="col-md-8">
+                        <div class="converter-card">
+                            <h3 class="card-title">
+                                <i class="fas fa-history me-2"></i>
+                                Histórico de Conversões
+                            </h3>
+                            <div id="historyList"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <!-- Footer moderno -->
+    <footer class="footer mt-auto py-4 custom-footer">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="mb-2">
+                        <i class="fas fa-server me-2"></i>
+                        Servidor: {{ hostname }} ({{ ip_address }})
+                    </p>
+                    <small class="opacity-75">
+                        <i class="fas fa-code me-1"></i>
+                        Conversor de Distância - Interface Moderna
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    
+    <!-- JavaScript customizado -->
+    <script src="/static/js/converter.js"></script>
+</body>
+
+</html>
